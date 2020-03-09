@@ -1,7 +1,7 @@
 /**
  * 「'Phrase'」シートに入力した言葉をランダムでSlackに送信する
  */
-function PostKindWordsBot() {
+const PostKindWordsBot = () => {
   const ss          = SpreadsheetApp.getActiveSpreadsheet();
   const phraseSheet = ss.getSheetByName('Phrase');
 
@@ -24,7 +24,7 @@ function PostKindWordsBot() {
  *
  * @return {string} 作成したメッセージ
  */
-const createLyricMessage_ = function(rowValues) {
+const createLyricMessage_ =(rowValues) => {
 
   let   m  = '';
   const CODE_BLOCK  = '```' + '\n';
