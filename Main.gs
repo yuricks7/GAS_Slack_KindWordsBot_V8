@@ -5,7 +5,6 @@
  * Google Apps Scriptでチャットワークの名言botを作る方法 | いつも隣にITのお仕事
  * https://tonari-it.com/gas-chatwork-bot/
  */
-
 const PostKindWordsBot = () => {
   const ss          = SpreadsheetApp.getActiveSpreadsheet();
   const phraseSheet = ss.getSheetByName('Phrase');
