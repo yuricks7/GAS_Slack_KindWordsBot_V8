@@ -1,6 +1,11 @@
 /**
  * 投稿先の設定
- * ※あらかじめ使用するプロジェクトにSlackAppライブラリを導入しておくこと！
+ * [note] あらかじめプロジェクトにSlackAppライブラリを導入しておくこと！
+ *
+ * クラス全体で外部ライブラリを使用
+ * [Name]    SlackApp
+ * [Key]     M3W5Ut3Q39AaIwLquryEPMwV62A3znfOO
+ * [version] 22
  *
  * @param {string} 投稿先のチャンネル名
  * @param {string} 投稿に表示するユーザー名

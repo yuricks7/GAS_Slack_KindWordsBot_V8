@@ -18,9 +18,10 @@ function PostKindWordsBot() {
 }
 
 /**
- * 行データから送信するメッセージを作成する
+ * シート1行分のデータから、送信するメッセージを作成する
  *
  * @param {array} 送信対象の行データ
+ *
  * @return {string} 作成したメッセージ
  */
 const createLyricMessage_ = function(rowValues) {
