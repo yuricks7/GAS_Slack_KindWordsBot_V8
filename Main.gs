@@ -24,11 +24,11 @@ const PostKindWordsBot = () => {
  *
  * @return {string} 作成したメッセージ
  */
-const createLyricMessage_ =(rowValues) => {
+const createLyricMessage_ = (rowValues) => {
 
   let   m  = '';
   const CODE_BLOCK  = '```' + '\n';
-  const BLOCK_QUATE = '>>> ';
+  const BLOCK_QUOTE = '>>> ';
   const rowData     = {
     lyrics     :rowValues[0],
     title      :rowValues[1],
@@ -50,10 +50,10 @@ const createLyricMessage_ =(rowValues) => {
   m += CODE_BLOCK;
 
   // 歌詞
-  if (rowValues[6] === true) {
+  if (rowData.isSongLyric === true) {
     m += rowData.title + ' - ' + rowData.singer + '\n';
 
-    m += BLOCK_QUATE;
+    m += BLOCK_QUOTE;
     m += '作詞：' + rowData.lyricWriter + '\n';
     m += '作曲：' + rowData.songWriter  + '\n';
     m += '編曲：' + rowData.arranger    + '\n';
@@ -69,7 +69,7 @@ const createLyricMessage_ =(rowValues) => {
   } else {
     m += rowData.title + ' - ' + rowData.lyricWriter + '\n';
 
-    m += BLOCK_QUATE;
+    m += BLOCK_QUOTE;
     m += '▼参考URL' + '\n';
     m += rowData.lyricUrl;
   }
