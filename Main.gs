@@ -25,37 +25,53 @@ function PostKindWordsBot() {
  * @return {string} 作成したメッセージ
  */
 const createLyricMessage_ = function(rowValues) {
-  let   m  = '';
 
+  let   m  = '';
+  const CODE_BLOCK  = '```' + '\n';
+  const BLOCK_QUATE = '>>> ';
+  const rowData     = {
+    lyrics     :rowValues[0],
+    title      :rowValues[1],
+    singer     :rowValues[2],
+    lyricWriter:rowValues[3],
+    songWriter :rowValues[4],
+    arranger   :rowValues[5],
+    isSongLyric:rowValues[6],
+    youtubeUrl :rowValues[7],
+    introducer :rowValues[8],
+    lyricUrl   :rowValues[9],
+  };
+  
+  // 共通部分
+  m = 'お元気ですか？' + '\n';
+  m += 'ちょっとこれ読んで休憩しましょ！:shushing_face:' + '\n';
+  m += CODE_BLOCK;
+  m += rowData.lyrics + '\n';
+  m += CODE_BLOCK;
+
+  // 歌詞
   if (rowValues[6] === true) {
-    m = 'お元気ですか？' + '\n';
-    m += 'ちょっとこれ読んで休憩しましょ！:shushing_face:' + '\n';
-    m += '```' + '\n';
-    m += rowValues[0] + '\n';
-    m += '```' + '\n';
-    m += rowValues[1] + ' - ' + rowValues[2] + '\n';
-    m += '>>> '
-    m += '作詞：' + rowValues[3] + '\n';
-    m += '作曲：' + rowValues[4] + '\n';
-    m += '編曲：' + rowValues[5] + '\n';
+    m += rowData.title + ' - ' + rowData.singer + '\n';
+
+    m += BLOCK_QUATE;
+    m += '作詞：' + rowData.lyricWriter + '\n';
+    m += '作曲：' + rowData.songWriter  + '\n';
+    m += '編曲：' + rowData.arranger    + '\n';
 
     // YouTubeのURLが無ければ以下飛ばす
-    if (!rowValues[7]) return m;
+    if (!rowData.youtubeUrl) return m;
 
     m += '\n';
     m += '▼Youtube' + '\n';
-    m += rowValues[7];
+    m += rowData.youtubeUrl;
 
+  // 歌詞以外
   } else {
-    m = 'お元気ですか？' + '\n';
-    m += 'ちょっとこれ読んで休憩しましょ！:shushing_face:' + '\n';
-    m += '```' + '\n';
-    m += rowValues[0] + '\n';
-    m += '```'+ '\n';
-    m += rowValues[1] + ' - ' + rowValues[3] + '\n';
-    m += '>>> ';
+    m += rowData.title + ' - ' + rowData.lyricWriter + '\n';
+
+    m += BLOCK_QUATE;
     m += '▼参考URL' + '\n';
-    m += rowValues[9];
+    m += rowData.lyricUrl;
   }
 
   return m;
