@@ -6,6 +6,7 @@
  * https://tonari-it.com/gas-chatwork-bot/
  */
 const PostKindWordsBot = () => {
+  // データを取得
   const ss          = SpreadsheetApp.getActiveSpreadsheet();
   const phraseSheet = ss.getSheetByName('Phrase');
 
@@ -14,12 +15,15 @@ const PostKindWordsBot = () => {
   const lastRow   = phraseSheet.getLastRow();
   const targetRow = Math.floor(Math.random() * (lastRow - 1) + FIRST_DATA_ROW);
 
+  // 本文を生成
   const values  = phraseSheet.getRange(targetRow, 1, 1, 10).getValues();
   const message = createLyricMessage_(values[0]);
 
-  const SlackBot = new Slack('00_kind-words-bot', '優しいことばBot');
-  SlackBot.post(message);
+  // 投稿
+  const slack = new Slack();
+  slack.post(message);
 }
+
 
 /**
  * シート1行分のデータから、送信するメッセージを作成する
