@@ -20,7 +20,8 @@ const PostKindWordsBot = () => {
   const message = createLyricMessage_(values[0]);
 
   // 投稿
-  const slack = new Slack();
+  const channelId = PropertiesService.getScriptProperties().getProperty('channel_id');
+  const slack     = SlackApp.load(channelId);
   slack.post(message);
 }
 
@@ -34,9 +35,9 @@ const PostKindWordsBot = () => {
  */
 const createLyricMessage_ = (rowValues) => {
 
-  let   m  = '';
+  let m  = '';
   const CODE_BLOCK  = '```' + '\n';
-  const BLOCK_QUOTE = '>>> ';
+  const BLOCK_QUOTE = ''>>> '';
   const rowData     = {
     lyrics     :rowValues[0],
     title      :rowValues[1],
@@ -51,34 +52,34 @@ const createLyricMessage_ = (rowValues) => {
   };
   
   // 共通部分
-  m = 'お元気ですか？' + '\n';
-  m += 'ちょっとこれ読んで休憩しましょ！:shushing_face:' + '\n';
+  m = `お元気ですか？\n`;
+  m += `ちょっとこれ読んで休憩しましょ！:shushing_face:\n`;
   m += CODE_BLOCK;
-  m += rowData.lyrics + '\n';
+  m += `${rowData.lyrics}\n`;
   m += CODE_BLOCK;
 
   // 歌詞
   if (rowData.isSongLyric === true) {
-    m += rowData.title + ' - ' + rowData.singer + '\n';
+    m += `${rowData.title} - ${rowData.singer}\n`;
 
     m += BLOCK_QUOTE;
-    m += '作詞：' + rowData.lyricWriter + '\n';
-    m += '作曲：' + rowData.songWriter  + '\n';
-    m += '編曲：' + rowData.arranger    + '\n';
+    m += `作詞：${rowData.lyricWriter}\n`;
+    m += `作曲：${rowData.songWriter}\n`;
+    m += `編曲：${rowData.arranger}\n`;
 
     // YouTubeのURLが無ければ以下飛ばす
     if (!rowData.youtubeUrl) return m;
 
-    m += '\n';
-    m += '▼Youtube' + '\n';
+    m += `\n`;
+    m += `▼Youtube\n`;
     m += rowData.youtubeUrl;
 
   // 歌詞以外
   } else {
-    m += rowData.title + ' - ' + rowData.lyricWriter + '\n';
+    m += `${rowData.title} - ${rowData.lyricWriter}\n`;
 
     m += BLOCK_QUOTE;
-    m += '▼参考URL' + '\n';
+    m += `▼参考URL\n`;
     m += rowData.lyricUrl;
   }
 
